@@ -37,7 +37,7 @@
       return false;
     }
     choose();
-    // eoiryew psfhdsjf hfh  df shflkfhdlkfhlasdfhsd
+    
     // If no user selection, progress is stopped
     if (isNaN(selections[questionCounter])) {
       alert('Please make a selection!');
@@ -100,6 +100,10 @@
   }
   
   // Creates a list of the answer choices as radio inputs
+  function createRadios(index) {
+    var radioList = $('<ul>');
+    var item;
+    var input = '';
     for (var i = 0; i < questions[index].choices.length; i++) {
       item = $('<li>');
       input = '<input type="radio" name="answer" value=' + i + ' />';
@@ -119,6 +123,13 @@
   function displayNext() {
     quiz.fadeOut(function() {
       $('#question').remove();
+      
+      if(questionCounter < questions.length){
+        var nextQuestion = createQuestionElement(questionCounter);
+        quiz.append(nextQuestion).fadeIn();
+        if (!(isNaN(selections[questionCounter]))) {
+          $('input[value='+selections[questionCounter]+']').prop('checked', true);
+        }
         
         // Controls display of 'prev' button
         if(questionCounter === 1){
